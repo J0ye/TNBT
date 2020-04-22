@@ -8,10 +8,14 @@ public class SpaceShipController : FreeLookCamera
     public UnityEvent OnFire;
     public UnityEvent OnCrash;
 
+    protected CharacterController controller;
+
     public void Awake()
     {
         SetUpEvent(OnCrash);
         SetUpEvent(OnFire);
+
+        controller = GetComponent<CharacterController>();
     }
 
     public new void Update()
@@ -23,6 +27,22 @@ public class SpaceShipController : FreeLookCamera
             OnFire.Invoke();
         }
     }
+#region Getter
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
+    public bool IsMoving()
+    {
+        if(CalculateFlyingVector() != Vector3.zero)
+        {
+            return true;
+        }
+
+        return false;
+    }
+#endregion
 
     protected void OnCollisionEnter(Collision other)
     {
@@ -31,6 +51,11 @@ public class SpaceShipController : FreeLookCamera
             Debug.Log("Crashed");
             OnCrash.Invoke();
         }
+    }
+
+    protected override void Move(Vector3 direction)
+    {
+        controller.Move(direction);
     }
 
     public static void SetUpEvent(UnityEvent e)

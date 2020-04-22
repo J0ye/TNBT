@@ -37,7 +37,7 @@ public class FreeLookCamera : MonoBehaviour
 
             direction.y = AddVerticalMovement(direction.y);
 
-            transform.Translate(direction);
+            Move(direction);
 
             CalculateOrientation();          
         }
@@ -64,9 +64,10 @@ public class FreeLookCamera : MonoBehaviour
 
     protected Vector3 CalculateFlyingVector()
     {
-        return new Vector3(((Input.GetAxis("Horizontal") * speed) * Time.deltaTime), 0,(Input.GetAxis("Vertical") * speed) * Time.deltaTime);
+        Vector3 value = new Vector3(((Input.GetAxis("Horizontal") * speed) * Time.deltaTime), 0,(Input.GetAxis("Vertical") * speed) * Time.deltaTime);
+        value = transform.TransformDirection(value);
+        return value;
     }
-
     protected float AddVerticalMovement(float baseValue)
     {
         // Vertical movement
@@ -80,6 +81,11 @@ public class FreeLookCamera : MonoBehaviour
         {
             return baseValue;
         }
+    }
+
+    protected virtual void Move(Vector3 direction)
+    {
+        transform.Translate(direction);
     }
 
     protected void Sprint()
