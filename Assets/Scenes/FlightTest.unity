@@ -6202,7 +6202,7 @@ PrefabInstance:
     - target: {fileID: 9116695257587784681, guid: c45face9dc259fb4e9d0a5405ebf75fe,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9116695257587784684, guid: c45face9dc259fb4e9d0a5405ebf75fe,
         type: 3}
@@ -6307,6 +6307,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Glider
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144484750124216529, guid: 8112de0e94188f3498eba88d73625575,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5144484750124216532, guid: 8112de0e94188f3498eba88d73625575,
         type: 3}

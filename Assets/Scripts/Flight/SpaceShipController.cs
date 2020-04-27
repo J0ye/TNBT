@@ -56,7 +56,7 @@ public class SpaceShipController : FreeLookCamera
 
     protected override Vector3 CalculateFlyingVector()
     {
-        float horizontal = 0;
+        float horizontal = (Input.GetAxis("Horizontal") * speed) * Time.deltaTime;
         float vertical = (Input.GetAxis("Vertical") * speed) * Time.deltaTime;
         vertical = Mathf.Clamp(vertical, 0f, speed * Time.deltaTime);
         Vector3 value = new Vector3(horizontal, 0, vertical);
@@ -72,14 +72,10 @@ public class SpaceShipController : FreeLookCamera
         smoothedVector = new Vector2(Mathf.Lerp(smoothedVector.x, mouseOrientation.x, 1.0f / smooth), 
                                         Mathf.Lerp(smoothedVector.y, mouseOrientation.y, 1.0f / smooth));
         mouseLook += smoothedVector;
-        
-        // Calculate rotation of spaceship
-        float horizontal = (Input.GetAxis("Horizontal") * rotationSpeed) * Time.deltaTime;
-        horizontal += transform.eulerAngles.z;
-        Debug.Log("Z: " + horizontal);
+        mouseLook.y = Mathf.Clamp(mouseLook.y, -90, 90);
 
         // Translation of camera orientation
-        transform.rotation = Quaternion.Euler(-mouseLook.y, mouseLook.x, -horizontal);   
+        transform.rotation = Quaternion.Euler(-mouseLook.y, mouseLook.x, transform.eulerAngles.z);   
     }
 
     protected override void Move(Vector3 direction)
