@@ -8,9 +8,9 @@ public class FreeLookCamera : MonoBehaviour
     public float speed = 10f;
     [Range(2f, 50f)]
     public float sprintMultiplyer = 10f;
-    [Range(1f, 10f)]
+    [Range(0.01f, 10f)]
     public float sensitivity = 3f;
-    [Range(1f, 10f)]
+    [Range(0.001f, 10f)]
     public float smooth = 2f;
 
     protected Vector2 mouseOrientation;
@@ -48,7 +48,7 @@ public class FreeLookCamera : MonoBehaviour
         }
     }
 
-    protected void CalculateOrientation()
+    protected virtual void CalculateOrientation()
     {
         // Calculation of camera orientation
         mouseOrientation = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
@@ -59,10 +59,10 @@ public class FreeLookCamera : MonoBehaviour
         mouseLook.y = Mathf.Clamp(mouseLook.y, -90, 90);
 
         // Translation of camera orientation
-        transform.rotation = Quaternion.Euler(-mouseLook.y, mouseLook.x, 0);   
+        transform.rotation = Quaternion.Euler(-mouseLook.y, mouseLook.x, transform.eulerAngles.z);   
     }
 
-    protected Vector3 CalculateFlyingVector()
+    protected virtual Vector3 CalculateFlyingVector()
     {
         Vector3 value = new Vector3(((Input.GetAxis("Horizontal") * speed) * Time.deltaTime), 0,(Input.GetAxis("Vertical") * speed) * Time.deltaTime);
         value = transform.TransformDirection(value);

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3873097242580679817}
   - component: {fileID: 6946719887326699114}
-  - component: {fileID: 8336149031518726371}
+  - component: {fileID: 4594853238135331280}
   m_Layer: 0
-  m_Name: Roo
+  m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.4616935, z: 0.8389441}
   m_Center: {x: 0, y: 0.32211173, z: -0.000000059604645}
---- !u!114 &8336149031518726371
+--- !u!114 &4594853238135331280
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,12 +58,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 259898929377054362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45656fb3c427b7b4981db16c758ec294, type: 3}
+  m_Script: {fileID: 11500000, guid: da7163faf1d9b5a449ded81a3d0eba84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnDestroy:
+  startHealth: 100
+  OnDamage:
     m_PersistentCalls:
       m_Calls: []
+  OnHeal:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 259898929377054362}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1066935651238096543
 GameObject:
   m_ObjectHideFlags: 0
