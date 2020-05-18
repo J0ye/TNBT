@@ -19,22 +19,24 @@ public class ShipInput : MonoBehaviour
 
     [Space]
 
-    [Range(-1, 1)]
+    [HideInInspector]
     public float pitch;
-    [Range(-1, 1)]
+    [HideInInspector]
     public float yaw;
-    [Range(-1, 1)]
+    [HideInInspector]
     public float roll;
-    [Range(-1, 1)]
+    [HideInInspector]
     public float strafe;
-    [Range(0, 1)]
-    public float throttle;
+    [HideInInspector]    public float throttle;
+    [Range(0.5f, 2)]
+    public float sprint_throttle;
 
     // How quickly the throttle reacts to input.
     private const float THROTTLE_SPEED = 0.5f;
 
     // Keep a reference to the ship this is attached to just in case.
     private Ship ship;
+    private float increase = 0f;
 
     private void Awake()
     {
@@ -64,6 +66,24 @@ public class ShipInput : MonoBehaviour
         {
             roll = -Input.GetAxis("Horizontal") * 0.5f;
             roll *= sensitivity / 100f;
+        }
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            EnableSprint(true);
+        }else if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            EnableSprint(false);
+        }
+    }
+
+    public void EnableSprint(bool enable)
+    {
+        if(enable)
+        {
+            increase = sprint_throttle;
+        }else
+        {
+            increase = 0f;
         }
     }
 
@@ -98,7 +118,7 @@ public class ShipInput : MonoBehaviour
             target = 1.0f;
         else if (Input.GetKey(decreaseKey))
             target = 0.0f;
-
+    
         throttle = Mathf.MoveTowards(throttle, target, Time.deltaTime * THROTTLE_SPEED);
     }
 
